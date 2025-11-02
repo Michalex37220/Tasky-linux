@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from ..src.user import user
 
 class StatsScreen(ctk.CTkFrame):
     """
@@ -10,6 +11,8 @@ class StatsScreen(ctk.CTkFrame):
         self.configure(fg_color="green")
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
+
+        self.user = user
 
         #Player stats widgets
         self.player_name_font = ctk.CTkFont(weight="bold", size=22)
