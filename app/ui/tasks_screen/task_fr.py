@@ -3,10 +3,10 @@ import customtkinter as ctk
 
 class TaskFrame(ctk.CTkFrame):
 
-    def __init__(self, master, player, task_data, **kwargs):
+    def __init__(self, master, user, task_data, **kwargs):
         super().__init__(master, **kwargs)
         self.task_data = task_data
-        self.player = player
+        self.user = user
         self.master = master
 
         self.title_font = ctk.CTkFont(weight="bold")
@@ -15,16 +15,9 @@ class TaskFrame(ctk.CTkFrame):
         self.complete_task_cb.grid(row=0, column=0, sticky="w", padx=8, pady=5)
         self.title_lb = ctk.CTkLabel(self, text=self.task_data["title"], font=self.title_font)
         self.title_lb.grid(row=0, column=0)
-        
-        self.difficulty_values = {
-            "1":5,
-            "2":8,
-            "3":10,
-            "4":15,
-            "5":18,
-            }
+
         self.difficulty = self.task_data["difficulty"]
-        self.difficulty_lb = ctk.CTkLabel(self, text=f"+{self.difficulty_values[self.difficulty]}XP")
+        self.difficulty_lb = ctk.CTkLabel(self, text=self.difficulty)
         self.difficulty_lb.grid(row=0, column=1, sticky="e", padx=8)
         self.description_lb = ctk.CTkLabel(self, text=self.formatte_text(self.task_data["description"]), justify="left")
         self.description_lb.grid(row=1, columnspan=2)
@@ -41,6 +34,5 @@ class TaskFrame(ctk.CTkFrame):
         return text
     
     def complete_task(self):
-        self.player.add_xp(self.difficulty_values[self.difficulty])
         self.master.master.task_editor_fr.switch_mode(mode="deletion", task_index=self.grid_info()["row"], confirm_deletion=False)  # type: ignore
         

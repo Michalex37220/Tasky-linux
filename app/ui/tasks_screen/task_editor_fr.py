@@ -8,9 +8,9 @@ from tkinter.messagebox import askyesno
 
 class TaskEditorFrame(ctk.CTkFrame):
 
-    def __init__(self, master, player, **kwargs) :
+    def __init__(self, master, user, **kwargs) :
         super().__init__(master, **kwargs)
-        self.player = player
+        self.user = user
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data = tasks_data_handler.tasks_data
         self.tasks_frames_handler = tasks_frames_handler
@@ -86,17 +86,18 @@ class TaskEditorFrame(ctk.CTkFrame):
     def show_problem_window(self):
         showinfo(self.error_window_title, self.error_window_msg)
 
-    def edit_task(self, task_index: int=0):
+    def edit_task(self):
         self.new_task_data = self.get_task_data()
 
         if self.new_task_data:
-            self.new_task = task_creator.create_task(self.master.all_tasks_fr, self.player, self.new_task_data) # type: ignore
+            self.new_task = task_creator.create_task(self.master.all_tasks_fr, self.user, self.new_task_data) # type: ignore
 
             if self.mode == "creation":
                 self.tasks_data.insert(0, self.new_task_data) # type: ignore
                 self.tasks_frames_handler.add_task_frame(self.new_task)
 
             elif self.mode == "edition":
+                self.tasks_frames[self.task_index].destroy()
                 self.tasks_frames[self.task_index] = self.new_task
                 self.tasks_data[self.task_index] = self.new_task_data # type: ignore
                 self.master.all_tasks_fr.refresh() # type: ignore

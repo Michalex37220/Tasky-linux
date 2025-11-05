@@ -2,7 +2,6 @@ import logging
 import customtkinter as ctk
 from .tabview import TabView
 from ..src.tasks.tasks_data_handler import tasks_data_handler
-from ..src.player import Player
 
 class MainWindow(ctk.CTk):
     """
@@ -11,10 +10,10 @@ class MainWindow(ctk.CTk):
     Inherit from customtkinter.CTk
     """
 
-    def __init__(self, master, player):
+    def __init__(self, master, user):
         self.master = master
         super().__init__()
-        self.title("Tasks Gamifier")
+        self.title("Tasks Manager")
         self.geometry("500x450")
         self.resizable(False, False)
         self.rowconfigure(0, weight=1)
@@ -23,7 +22,7 @@ class MainWindow(ctk.CTk):
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data_handler.load_tasks_data()
         self.tasks_data = self.tasks_data_handler.tasks_data
-        self.tabview = TabView(self, player)
+        self.tabview = TabView(self, user)
         self.tabview.grid(sticky="nsew")
 
     def on_closing(self):
