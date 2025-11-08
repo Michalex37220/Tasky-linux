@@ -7,7 +7,7 @@ class TasksDataHandler():
 
     def __init__(self, tasks_data: list=[]):
         self.tasks_data = tasks_data
-        self.backupdir_path =  os.path.join(os.getenv("APPDATA", os.path.join(os.path.expanduser("~"), "AppData/Roaming/Tasks Gamifier")), "Tasks Gamifier")
+        self.backupdir_path =  os.path.join(os.getenv("APPDATA", os.path.join(os.path.expanduser("~"), "AppData/Roaming/Tasks Manager")), "Tasks Manager")
 
         if not os.path.exists(self.backupdir_path):
             print("No backup folder found !")

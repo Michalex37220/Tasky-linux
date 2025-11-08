@@ -21,7 +21,8 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
             self.tasks_data = self.tasks_data
             self.task_fr = task_creator.create_task(self, task_data=task_data, user=user)
             self.tasks_frames_handler.add_task_frame(self.task_fr)
-            self.task_fr.grid(row=index, pady=10)
+            self.rowconfigure(index, weight=1)
+            self.task_fr.grid(row=index, pady=10, sticky="new")
 
         self.tasks_frames_count = len(self.tasks_frames)
         self.refresh()
@@ -48,6 +49,7 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
 
             for index, task_frame in enumerate(self.tasks_frames):
                 task_frame.grid(row=index, sticky="ew", padx=8, pady=10)
+                self.rowconfigure(index, weight=1)
 
         else:
             self.no_task_lb.grid(row=0, sticky="ew")

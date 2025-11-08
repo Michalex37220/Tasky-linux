@@ -26,22 +26,22 @@ class TaskEditorFrame(ctk.CTkFrame):
 
         self.cancel_b = ctk.CTkButton(self, text="X", fg_color=self.button_color_1, width=1, command=lambda: self.switch_mode(mode="creation"))
 
-        self.title_lb = ctk.CTkLabel(self, text="Title").grid(row=1, sticky="w")
+        self.title_lb = ctk.CTkLabel(self, text="Title").grid(row=1, sticky="w", pady=5)
         self.title_e = ctk.CTkEntry(self)
-        self.title_e.grid(row=2, sticky="w")
+        self.title_e.grid(row=2, sticky="ew")
 
-        self.difficulty_lb = ctk.CTkLabel(self, text="Difficulty").grid(row=3, sticky="w")
+        self.difficulty_lb = ctk.CTkLabel(self, text="Difficulty").grid(row=3, sticky="w", pady=5)
         self.difficulty_om = ctk.CTkOptionMenu(self, values=["1", "2", "3", "4", "5"])
-        self.difficulty_om.grid(row=4, sticky="w")
+        self.difficulty_om.grid(row=4, sticky="ew")
 
         self.bad_input_b = ctk.CTkButton(self, text="!", text_color="red", command=self.show_problem_window, width=1, fg_color=self.button_color_1)
 
-        self.description_lb = ctk.CTkLabel(self, text="Description").grid(row=5, sticky="w")
+        self.description_lb = ctk.CTkLabel(self, text="Description").grid(row=5, sticky="w", pady=5)
         self.description_tb = ctk.CTkTextbox(self)
         self.description_tb.grid(row=6)
 
         self.confirm_b = ctk.CTkButton(self, text="Add", command=self.edit_task, width=9) #type: ignore
-        self.confirm_b.grid(row=7, sticky="ew")
+        self.confirm_b.grid(row=7, sticky="ew", pady=5)
 
         self.delete_b = ctk.CTkButton(self, text="Delete", text_color="red", fg_color=self.button_color_1, width=9, command=lambda: self.switch_mode(mode="deletion", confirm_deletion=True))
 

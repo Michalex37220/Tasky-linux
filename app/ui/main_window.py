@@ -14,8 +14,7 @@ class MainWindow(ctk.CTk):
         self.master = master
         super().__init__()
         self.title("Tasks Manager")
-        self.geometry("500x450")
-        self.resizable(False, False)
+        # self.resizable(False, False)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.protocol("WM_DELETE_WINDOW")
