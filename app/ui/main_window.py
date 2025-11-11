@@ -2,6 +2,7 @@ import logging
 import customtkinter as ctk
 from .tabview import TabView
 from ..src.tasks.tasks_data_handler import tasks_data_handler
+import logging
 
 class MainWindow(ctk.CTk):
     """
@@ -23,6 +24,8 @@ class MainWindow(ctk.CTk):
         self.tasks_data = self.tasks_data_handler.tasks_data
         self.tabview = TabView(self, user)
         self.tabview.grid(sticky="nsew")
+        self.logger = logging.getLogger("app.ui.main_window")
+        self.logger.warning("hello")
 
     def on_closing(self):
         self.tasks_data_handler.save_tasks_data()

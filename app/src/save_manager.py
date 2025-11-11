@@ -1,12 +1,11 @@
 
-from ..libs import path_maker
 import json
+from ..libs import path_maker
 
 def save_data(filepath: str, data):
 
     with open(filepath, "w") as f:
         json.dump(data, f)
-    print("Data saved !")
 
 def load_data(filepath: str):
 

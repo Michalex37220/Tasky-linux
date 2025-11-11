@@ -2,6 +2,7 @@ import customtkinter as ctk
 from .all_tasks_fr import AllTasksFrame
 from .task_editor_fr import TaskEditorFrame
 from ...src.tasks.tasks_data_handler import tasks_data_handler
+import logging
 
 class TasksScreen(ctk.CTkFrame):
 
@@ -11,6 +12,8 @@ class TasksScreen(ctk.CTkFrame):
         self.rowconfigure(0, weight=1)
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data = self.tasks_data_handler.tasks_data
+        self.logger = logging.getLogger("app.ui.main_window.tabview.tasks_screen")
+        self.logger.warning("hih")
 
         
         self.all_tasks_fr = AllTasksFrame(self, user)
