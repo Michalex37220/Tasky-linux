@@ -17,11 +17,11 @@ class App:
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data_handler.load_tasks_data()
         self.main_window = MainWindow(self, self.user)
-        self.logger.info("Main window drawed")
-        self.auto_save()
 
 
     def running(self):
+        self.auto_save()
+        self.logger.info("Main window drawed")
         self.main_window.mainloop()
         self.exit_app()
 
