@@ -2,10 +2,10 @@ import customtkinter as ctk
 from tkinter.messagebox import showinfo
 import datetime as dt
 import logging
+from tkinter.messagebox import askyesno
 from ...src.tasks.tasks_data_handler import tasks_data_handler
 from ...src.tasks.tasks_frames_handler import tasks_frames_handler
 from ...src.tasks import task_creator
-from tkinter.messagebox import askyesno
 
 class TaskEditorFrame(ctk.CTkFrame):
 
@@ -17,6 +17,7 @@ class TaskEditorFrame(ctk.CTkFrame):
         self.tasks_data = tasks_data_handler.tasks_data
         self.tasks_frames_handler = tasks_frames_handler
         self.tasks_frames = tasks_frames_handler.tasks_frames
+        self.logger = logging.getLogger(__name__)
 
         self.mode = "creation"
         self.task_index = 0
@@ -93,18 +94,22 @@ class TaskEditorFrame(ctk.CTkFrame):
 
         if self.new_task_data:
             self.new_task = task_creator.create_task(self.master.all_tasks_fr, self.user, self.new_task_data) # type: ignore
+            self.logger.info("A task frame has been created")
 
             if self.mode == "creation":
                 self.tasks_data.insert(0, self.new_task_data) # type: ignore
                 self.tasks_frames_handler.add_task_frame(self.new_task)
+                self.logger.info("A task has been created")
 
             elif self.mode == "edition":
                 self.tasks_frames[self.task_index].destroy()
                 self.tasks_frames[self.task_index] = self.new_task
                 self.tasks_data[self.task_index] = self.new_task_data # type: ignore
                 self.master.all_tasks_fr.refresh() # type: ignore
+                self.logger.info("A task has been edited")
 
     def switch_mode(self, task_index: int=0, task_data: dict={}, mode: str="creation", confirm_deletion: bool=False):
+        self.logger.info(f"Switched to task {mode} mode")
         self.task_index = task_index
 
         if mode == "creation":
@@ -145,4 +150,5 @@ class TaskEditorFrame(ctk.CTkFrame):
         if self.deletion_confirmation:
             self.tasks_frames_handler.remove_task_frame((self.task_index))
             del self.tasks_data_handler.tasks_data[self.task_index] # type: ignore
+            self.logger.info("A task has been deleted")
             self.switch_mode(mode="creation")

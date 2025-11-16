@@ -18,12 +18,18 @@ class MainWindow(ctk.CTk):
         self.resizable(False, False)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        self.protocol("WM_DELETE_WINDOW")
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data_handler.load_tasks_data()
         self.tasks_data = self.tasks_data_handler.tasks_data
         self.tabview = TabView(self, user)
         self.tabview.grid(sticky="nsew")
         self.logger = logging.getLogger(__name__)
+
+    def on_closing(self):
+        self.logger.debug("Window closure request received")
+        self.destroy()
+        self.logger.info("Window closed")
+
 
 

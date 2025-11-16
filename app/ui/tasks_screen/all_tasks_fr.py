@@ -62,4 +62,5 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
 
         else:
             self.no_task_lb.grid(row=0, sticky="ew")
+        self.tasks_frames_count = len(self.tasks_frames)
         self.logger.info("Tasks screen refreshed")

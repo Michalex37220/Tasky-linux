@@ -1,5 +1,6 @@
 
 import customtkinter as ctk
+import logging
 
 class TaskFrame(ctk.CTkFrame):
 
@@ -12,6 +13,7 @@ class TaskFrame(ctk.CTkFrame):
         self.task_data = task_data
         self.user = user
         self.master = master
+        self.logger = logging.getLogger(__name__)
         self.bg_color = "grey17"
 
         self.title_font = ctk.CTkFont(weight="bold")
@@ -34,5 +36,5 @@ class TaskFrame(ctk.CTkFrame):
         self.edit_b.grid(row=2, column=2, sticky="e", padx=8)
 
     def complete_task(self):
+        self.logger.info("A task completion request has been received")
         self.master.master.task_editor_fr.switch_mode(mode="deletion", task_index=self.grid_info()["row"], confirm_deletion=False)  # type: ignore
-        

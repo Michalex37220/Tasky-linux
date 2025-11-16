@@ -22,19 +22,19 @@ def load_data(filepath: str):
             data = json.load(f)
 
     except FileNotFoundError:
-        logger.info(f"No file found at {filepath_without_username}")
+        logger.warning(f"No file found at {filepath_without_username}")
         return
     
     except json.JSONDecodeError:
-        logger.info(f"Unable to load data from file {filepath_without_username} : file corrupted")
+        logger.warning(f"Unable to load data from file {filepath_without_username} : file corrupted")
         return
 
     except PermissionError:
-        logger.info(f"Unable to load data from file {filepath_without_username} : permission denied")
+        logger.warning(f"Unable to load data from file {filepath_without_username} : permission denied")
         return
 
     except Exception as e:
-        logger.info(f"Unable to load data from file {filepath_without_username}\n{e}")
+        logger.warning(f"Unable to load data from file {filepath_without_username}\n{e}")
         return
 
     else:
