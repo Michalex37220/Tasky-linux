@@ -1,9 +1,4 @@
 
-import json
-from tkinter.messagebox import showerror
-import os
-from tkinter.messagebox import showinfo
-from .save_manager import save_data, load_data
 
 class User:
 
