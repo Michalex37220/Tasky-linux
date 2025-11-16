@@ -20,7 +20,6 @@ class MainWindow(ctk.CTk):
         self.columnconfigure(0, weight=1)
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.tasks_data_handler = tasks_data_handler
-        self.tasks_data_handler.load_tasks_data()
         self.tasks_data = self.tasks_data_handler.tasks_data
         self.tabview = TabView(self, user)
         self.tabview.grid(sticky="nsew")
