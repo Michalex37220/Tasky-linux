@@ -1,6 +1,7 @@
 
 import os
 from app.ui.main_window import MainWindow
+from app.src.tasks.tasks_data_handler import tasks_data_handler
 from app.src.user import User
 from app.src  import save_manager
 import logging, logging.handlers
@@ -13,7 +14,11 @@ class App:
         self.user = User(self)
         check_and_make("program_dir", "data_dir", "user_data_dir", "logs_dir")
         self.logger = logging.getLogger(__name__)
+        self.tasks_data_handler = tasks_data_handler
+        self.tasks_data_handler.load_tasks_data()
         self.main_window = MainWindow(self, self.user)
+        self.logger.info("Main window drawed")
+        self.auto_save()
 
 
     def running(self):
@@ -22,9 +27,12 @@ class App:
 
     def exit_app(self):
         self.logger.info("Saving data...")
-        self.main_window.tasks_data_handler.save_tasks_data()
+        self.tasks_data_handler.save_tasks_data()
+        self.logger.info("Exit folowing main window closure")
+        exit()
 
     def auto_save(self):
-        self.main_window.tasks_data_handler.save_tasks_data()
-        self.main_window.after(300000, self.auto_save)
+        self.logger.info("Auto saving...")
+        self.tasks_data_handler.save_tasks_data()
+        self.main_window.after(120000, self.auto_save)
 
