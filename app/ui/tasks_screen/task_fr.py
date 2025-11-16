@@ -24,7 +24,6 @@ class TaskFrame(ctk.CTkFrame):
         self.difficulty_lb = ctk.CTkLabel(self, text=self.difficulty)
         self.difficulty_lb.grid(row=0, column=2, sticky="e", padx=8)
         self.description_sv = ctk.StringVar(self)
-        self.bind("<Configure>", lambda event: print(self.winfo_width())) #Reformatte text when the frame width change
         self.description_tb = ctk.CTkTextbox(self,  height=90, fg_color=self.bg_color)
         self.description_tb.insert(0.0, self.task_data["description"])
         self.description_tb.configure(state="disabled")

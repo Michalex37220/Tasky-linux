@@ -15,7 +15,7 @@ class MainWindow(ctk.CTk):
         self.master = master
         super().__init__()
         self.title("Tasks Manager")
-        # self.resizable(False, False)
+        self.resizable(False, False)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.protocol("WM_DELETE_WINDOW")
@@ -24,9 +24,9 @@ class MainWindow(ctk.CTk):
         self.tasks_data = self.tasks_data_handler.tasks_data
         self.tabview = TabView(self, user)
         self.tabview.grid(sticky="nsew")
-        self.logger = logging.getLogger("app.ui.main_window")
-        self.logger.warning("hello")
+        self.logger = logging.getLogger(__name__)
 
     def on_closing(self):
+        self.logger.info("Saving tasks data...")
         self.tasks_data_handler.save_tasks_data()
 

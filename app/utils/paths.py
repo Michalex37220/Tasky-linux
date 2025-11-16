@@ -1,7 +1,7 @@
 
 import os
 
-base_path = os.path.join(os.getenv("APPDATA", os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "TasksManager")), "Tasks Manager")
+base_path = os.path.join(os.getenv("APPDATA", os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "Tasky")), "Tasky")
 data_dir = os.path.join(base_path, "data") # Data folder
 
 user_data_dir = os.path.join(data_dir, "user") # User data directory

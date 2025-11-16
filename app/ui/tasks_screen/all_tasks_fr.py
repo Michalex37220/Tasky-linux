@@ -1,5 +1,6 @@
 
 import customtkinter as ctk
+import logging
 from ...src.tasks.tasks_data_handler import tasks_data_handler
 from ...src.tasks.tasks_frames_handler import tasks_frames_handler
 from ...src.tasks import task_creator
@@ -12,11 +13,13 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
         self.tasks_data = self.tasks_data_handler.tasks_data
 
         self.master = master
+        self.logger = logging.getLogger(__name__)
         self.columnconfigure(0, weight=1)
         self.tasks_frames_handler = tasks_frames_handler
         self.tasks_frames = self.tasks_frames_handler.tasks_frames
         self.no_task_lb = ctk.CTkLabel(self, text="There are no tasks")
 
+        self.logger.info("Creating tasks frames...")
         for index, task_data in enumerate(self.tasks_data): # type: ignore
             self.tasks_data = self.tasks_data
             self.task_fr = task_creator.create_task(self, task_data=task_data, user=user)
@@ -26,6 +29,7 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
 
         self.tasks_frames_count = len(self.tasks_frames)
         self.refresh()
+        self.check_count = 0
         self.check_for_new_tasks()
 
     def check_for_new_tasks(self):
@@ -34,7 +38,13 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
         """
 
         if self.tasks_frames_handler.tasks_frames_count != self.tasks_frames_count:
+            self.logger.info("Tasks modified, refreshing screen...")
             self.refresh()
+
+        self.check_count += 1
+        
+        if self.check_count % 100 == 0:
+            self.logger.info(f"Checking for new tasks {self.check_count} time")
 
         self.after(500, self.check_for_new_tasks)
 
@@ -42,7 +52,6 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
         """
         Update the frame for displaying new added task
         """
-        self.tasks_frames_count = len(self.tasks_frames)
 
         if self.tasks_frames:
             self.no_task_lb.grid_forget()
@@ -53,3 +62,4 @@ class AllTasksFrame(ctk.CTkScrollableFrame):
 
         else:
             self.no_task_lb.grid(row=0, sticky="ew")
+        self.logger.info("Tasks frames refreshed")

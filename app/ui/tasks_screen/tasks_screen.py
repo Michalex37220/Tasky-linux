@@ -12,10 +12,8 @@ class TasksScreen(ctk.CTkFrame):
         self.rowconfigure(0, weight=1)
         self.tasks_data_handler = tasks_data_handler
         self.tasks_data = self.tasks_data_handler.tasks_data
-        self.logger = logging.getLogger("app.ui.main_window.tabview.tasks_screen")
-        self.logger.warning("hih")
+        self.logger = logging.getLogger(__name__)
 
-        
         self.all_tasks_fr = AllTasksFrame(self, user)
         self.all_tasks_fr.grid(column=0, row=0, sticky="nsew", padx=30)
 

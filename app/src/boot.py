@@ -1,14 +1,16 @@
 
 import os
 import logging
-import logging.handlers
-from typing import Literal
 from app.utils import paths
+from app.utils.username_hidder import remove_username
 
-paths_alias = {
+logger = logging.getLogger(__name__)
+
+existing_paths_alias = {
+    "program_dir":paths.base_path,
     "data_dir":paths.data_dir,
     "logs_dir":paths.logs_dir,
-    "user_data_dir":paths.user_data_dir
+    "user_data_dir":paths.user_data_dir,
 }
 
 def check_and_make(*paths_alias):
@@ -21,21 +23,26 @@ def check_and_make(*paths_alias):
     """
 
     for alias in paths_alias:
-        if not alias in paths_alias:
+
+        if not alias in existing_paths_alias:
+            logger.warning("Unable to found path alias for given alias '{alias}'")
             raise ValueError(f"No path found for given alias '{alias}'")
 
         else:
-            path = paths_alias[alias]
+            path = existing_paths_alias[alias]
+            path_without_username = remove_username(path)
+            logger.info(f"Checking the existence of {path_without_username}...")
 
         if not os.path.exists(path):
-            print(f"[Info] Folder at {path} not found, attempting to make it...")
+            logger.warning(f"Folder at {path_without_username} not found, attempting to make it...")
 
             try:
                 os.mkdir(path)
 
             except Exception as e:
-                print(f"[Error] Failed to create folder at {path}: {e}")
+                logger.warning(f"Failed to create folder at {path_without_username}\n[...] : {e}")
 
             else:
-                print(f"[Info] Folder {path} created")
+                logger.info(f"Folder {path_without_username} created")
+
 

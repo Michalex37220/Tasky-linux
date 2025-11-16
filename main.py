@@ -1,8 +1,8 @@
 
 import tkinter as tk
-from app.src.app import App
+from app.app import App
 
 app = App()
-print("Welcome to Tasks Manager v0.1.0-alpha")
+print("Welcome to Tasks Manager v0.1.0")
 app.running()
 
